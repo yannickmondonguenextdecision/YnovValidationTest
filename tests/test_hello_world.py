@@ -1,8 +1,7 @@
 import sys
-import pytest
- 
-sys.path.insert(0, "..")
-import hello_world
+import io
+from src import hello_world
+
  
 def test_hello_world():
     """Tests the hello_world function."""
