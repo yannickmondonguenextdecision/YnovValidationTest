@@ -1,4 +1,4 @@
-name: Python Test Workflow (Question I et III)
+name: Test parallèle (Question V)
 
 on:
   push:
