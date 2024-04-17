@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        script: [hello_world, hello_world2]
+        script: [hello_world, hello_world_2]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python
