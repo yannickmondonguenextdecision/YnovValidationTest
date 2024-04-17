@@ -1,0 +1,50 @@
+
+
+name: Python Test Workflow (Question I et III)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+      - name: Notification start
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_MESSAGE: 'Début des tests sur la branche main'
+          SLACK_COLOR: '#FFA500'  # Optional: change color as needed
+      - name: Run tests
+        run: pytest
+        working-directory: ./tests
+      - name: Notification success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_MESSAGE: 'Tests réussis sur la branche main'
+          SLACK_COLOR: 'good'  # green
+      - name: Notification failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: https://hooks.slack.com/services/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
+          SLACK_MESSAGE: 'Échec des tests sur la branche main'
+          SLACK_COLOR: 'danger'  # red
+      - name: Run hello_world_2.py
+        run: python src/hello_world_2.py
+
+
+
